@@ -64,6 +64,10 @@ récupéré. Le modèle fournit un rôle, `base` : paquets, fuseau horaire, NTP
 En local : `bash scripts/check-profile.sh` (il lit le `HEAD` committé, comme le
 serveur).
 
+Le workflow tourne sur `ubuntu-24.04`. Sur un dépôt privé sans minutes de
+runners hébergés, définissez la variable de dépôt `RUNNER` avec l'étiquette de
+votre propre runner.
+
 ## Limites actuelles
 
 - PXE Tools ne génère pas l'inventaire : déclarez chaque machine deux fois,
