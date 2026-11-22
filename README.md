@@ -61,6 +61,10 @@ security updates on Debian or Ubuntu.
 Check locally with `bash scripts/check-profile.sh` (it reads the committed
 `HEAD`, as the server does).
 
+The workflow runs on `ubuntu-24.04`. On a private repository without hosted
+runner minutes, set the repository variable `RUNNER` to the label of your own
+runner.
+
 ## Current limits
 
 - PXE Tools does not generate the inventory: declare each machine twice, in
