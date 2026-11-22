@@ -1,0 +1,12 @@
+---
+# Account Ansible connects with. It must exist on the installed machine and
+# accept the PXE Tools public key (see the preset's administrator account).
+ansible_user: admin
+
+base_timezone: Etc/UTC
+# Empty list: keep the distribution's default NTP pool.
+base_ntp_servers: []
+
+# Secrets: encrypt values with ansible-vault, never commit them in clear text.
+# PXE Tools supplies the Vault password itself (Settings → Ansible).
+#   ansible-vault encrypt_string --name my_secret 'value'

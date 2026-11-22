@@ -1,0 +1,8 @@
+---
+base_timezone: Etc/UTC
+base_ntp_servers: []
+base_packages:
+  - ca-certificates
+  - chrony
+  - curl
+  - unattended-upgrades

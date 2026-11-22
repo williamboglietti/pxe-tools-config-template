@@ -1,0 +1,4 @@
+# Managed by Ansible (pxe-tools-config, role base).
+{% for server in base_ntp_servers %}
+server {{ server }} iburst
+{% endfor %}

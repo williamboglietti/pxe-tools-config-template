@@ -1,0 +1,9 @@
+---
+# Entry point for the PXE Tools role "base". PXE Tools runs:
+#   ansible-playbook playbooks/base.yml --limit <machine name>
+# so the machine must be declared in inventory/hosts.yml under that exact name.
+- name: Configure a freshly installed Debian or Ubuntu machine
+  hosts: all
+  become: true
+  roles:
+    - role: base

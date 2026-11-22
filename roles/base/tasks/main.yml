@@ -1,0 +1,58 @@
+---
+- name: Check that the target is supported
+  ansible.builtin.assert:
+    that:
+      - ansible_facts['os_family'] == 'Debian'
+      - ansible_facts['service_mgr'] == 'systemd'
+    fail_msg: This role supports Debian and Ubuntu with systemd only.
+
+- name: Install base packages
+  ansible.builtin.apt:
+    name: "{{ base_packages }}"
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Read the current timezone
+  ansible.builtin.command: timedatectl show --property=Timezone --value
+  register: base_current_timezone
+  changed_when: false
+
+- name: Set the timezone
+  ansible.builtin.command:
+    argv: [timedatectl, set-timezone, "{{ base_timezone }}"]
+  when: base_current_timezone.stdout != base_timezone
+  changed_when: true
+
+- name: Configure NTP servers for chrony
+  ansible.builtin.template:
+    src: chrony-servers.conf.j2
+    dest: /etc/chrony/conf.d/pxe-tools-base.conf
+    owner: root
+    group: root
+    mode: "0644"
+  when: base_ntp_servers | length > 0
+  notify: Restart chrony
+
+- name: Remove the NTP override when no server is set
+  ansible.builtin.file:
+    path: /etc/chrony/conf.d/pxe-tools-base.conf
+    state: absent
+  when: base_ntp_servers | length == 0
+  notify: Restart chrony
+
+- name: Enable chrony
+  ansible.builtin.systemd_service:
+    name: chrony
+    enabled: true
+    state: started
+
+- name: Enable automatic security updates
+  ansible.builtin.copy:
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    content: |
+      APT::Periodic::Update-Package-Lists "1";
+      APT::Periodic::Unattended-Upgrade "1";
+    owner: root
+    group: root
+    mode: "0644"

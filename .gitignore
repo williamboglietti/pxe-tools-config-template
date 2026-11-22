@@ -1,0 +1,14 @@
+# Secrets and local controller files: never commit them.
+.vault_pass
+.vault_pass*
+*.vault-password
+*.pem
+*.key
+id_*
+!id_*.pub
+
+# Local Ansible artefacts
+*.retry
+.ansible/
+__pycache__/
+.venv/

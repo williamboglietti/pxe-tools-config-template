@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "name": "pxe-tools-config",
+  "presets_path": "presets",
+  "paths": [
+    ".gitignore",
+    "ansible.cfg",
+    "inventory",
+    "playbooks/base.yml",
+    "presets",
+    "roles/base"
+  ],
+  "playbooks": {
+    "base": "playbooks/base.yml"
+  }
+}

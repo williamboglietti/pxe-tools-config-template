@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  role_name: base
+  author: PXE Tools
+  description: Minimal, safe defaults for a machine installed by PXE Tools.
+  license: MIT-0
+  min_ansible_version: "2.16"
+  platforms:
+    - name: Debian
+      versions:
+        - bookworm
+        - trixie
+    - name: Ubuntu
+      versions:
+        - noble
+dependencies: []
